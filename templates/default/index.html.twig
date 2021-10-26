@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DefaultController!
+{% endblock %}
+
+{% block body %}
+	{# {% include '' with {chiens: chiens} only %} #}
+	{# {{ dump(chiens) }} #}
+		<div class="container"> <div class="row">
+			{% for chien in chiens %}
+				<div class="card col-3" style="width: 18rem;">
+					<img src="{{chien.photo.first.imgUrl}}" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title">{{ chien.nom}}</h5>
+						<p class="card-text">{{ chien.description}}</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
