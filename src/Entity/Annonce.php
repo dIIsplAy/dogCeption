@@ -44,6 +44,16 @@ class Annonce
      */
     private $demandeAdoption;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $titre;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $description;
+
     public function __construct()
     {
         $this->listeChien = new ArrayCollection();
@@ -149,5 +159,41 @@ class Annonce
         }
 
         return $this;
+    }
+
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(string $titre): self
+    {
+        $this->titre = $titre;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getFirstImage(): ?Photo
+    {
+        foreach ($this->getListeChien() as $chien) {
+            foreach ($chien->getPhoto() as $photo){
+                if(!empty($photo->getImgUrl())){
+                return $photo;
+                }
+            }
+        }
+        return null;
     }
 }

@@ -1,22 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DefaultController!
-{% endblock %}
+{# {% block title %}Hello DefaultController!
+{% endblock %} #}
 
 {% block body %}
-	{# {% include '' with {chiens: chiens} only %} #}
-	{# {{ dump(chiens) }} #}
-		<div class="container"> <div class="row">
-			{% for chien in chiens %}
-				<div class="card col-3" style="width: 18rem;">
-					<img src="{{chien.photo.first.imgUrl}}" class="card-img-top" alt="...">
-					<div class="card-body">
-						<h5 class="card-title">{{ chien.nom}}</h5>
-						<p class="card-text">{{ chien.description}}</p>
-						<a href="#" class="btn btn-primary">Go somewhere</a>
-					</div>
-				</div>
+	<div class="container mt- mb-4">
+		<div class="col-12 d-flex justify-content-center m-4">
+			<h1>Voici nos derniere annonces a pourvoir !</h1>
+		</div>
+		<div class="row justify-content-around">
+			{% for annonce in annonces %}
+				{% include 'components/cardAnnonce.html.twig' with {annonce : annonce } only  %}
 			{% endfor %}
 		</div>
 	</div>
+	<div class="container mt-4 mb-4">
+		<div class="col-12 d-flex justify-content-center m-4">
+			<h1>Voici la liste des annonceurs</h1>
+		</div>
+		<div class="row justify-content-around">
+			{% for annonceur in annonceurs %}
+				{% include 'components/cardAnnonceur.html.twig' with {annonceur : annonceur } only  %}
+			{% endfor %}
+		</div>
+	</div>
+    
 {% endblock %}

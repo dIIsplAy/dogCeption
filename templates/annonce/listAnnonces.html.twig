@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}{% block body %}
+	<div class="container mt- mb-4">
+		<div class="col-12 d-flex justify-content-center m-4">
+			<h1>Voici la listes de toutes les annonces !</h1>
+		</div>
+		<div class="row justify-content-around">
+			{% for annonce in annonces %}
+				{% include 'components/cardAnnonce.html.twig' with {annonce : annonce } only  %}
+			{% endfor %}
+		</div>
+	</div>
+{% endblock body %}

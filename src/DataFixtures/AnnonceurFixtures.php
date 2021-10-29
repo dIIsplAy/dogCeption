@@ -24,6 +24,12 @@ class AnnonceurFixtures extends Fixture
          $annonceur->setPassword('1234' . $i);
          $annonceur->setUser('Annonceur' . $i);
          $annonceur->setRoles([]);
+         $annonceur->setIsEleveur(false);
+         $annonceur->setNomAsso('Elevage du bonnheur');
+         $annonceur->setAddresse('6 Avenue de la liberté');
+         $annonceur->setTelephone('0654251478');
+         $annonceur->setEmail('jhon'. $i .'.doe@gmail.com');
+         $annonceur->setIsSpa(true);
          $manager->persist($annonceur);
      }
         // $product = new Product();

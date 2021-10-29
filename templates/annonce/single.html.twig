@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<div style="height:80vh" class="container d-flex justify-content-center align-items-center">
+		<div class="row col-12 align-items-center">
+			<div class="col-6 p-4">
+				<div id="carouselExampleControls" class="carousel slide h-100" data-bs-ride="carousel">
+					<div class="carousel-inner">
+						{% set isFirstImg = false %}
+						{% set isFirstImgRendered = false %}
+						{% for chien in annonce.listeChien %}
+							{% if chien.photo|length > 0 and not isFirstImgRendered %}
+								{% set isFirstImg = true %}
+							{% endif %}
+							{% for photo in chien.photo %}
+								<div class="carousel-item{% if isFirstImg and not isFirstImgRendered %} active{% endif %}">
+									<img class="card-single-view" src="{{photo.imgUrl}}" class="d-block w-100" alt="...">
+								</div>
+								{% if isFirstImgRendered == false and isFirstImg %}
+									{% set isFirstImgRendered = true %}
+								{% endif %}
+							{% endfor %}
+						{% endfor %}
+					</div>
+					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Next</span>
+					</button>
+				</div>
+			</div>
+			<div class="col-6 p-4 bg-light">
+				<h1>{{annonce.titre}}</h1>
+				<p>
+					Date de publication :
+					<small class="text-muted">{{annonce.datePublication  |date("m/d/Y") }}</small>
+				</p>
+				<p>
+					Nom de l'annonceur :
+					<small class="text-muted">{{ annonce.annonceur.user }}</small>
+				</p>
+				<p>
+					Provenance :
+					<small class="text-muted">{{ annonce.annonceur.nomAsso }}</small>
+				</p>
+				<div class="col-10">
+					<h5>Détails</h5>
+					<p>{{annonce.description}}</p>
+					<h5>Liste des chiens</h5>
+					<ul>
+						{% for chien in annonce.listeChien %}
+							{% for race in chien.race %}
+								<li>Nom du chien
+									{{ chien.nom }}
+									({{ race.nom }})</li>
+							{% endfor -%}
+						{% endfor %}
+					</ul>
+				</div>
+					<div class="col-12 d-flex justify-content-center align-items-center">
+						<a href=".." class="btn btn-outline-primary">Demande d'adoption</a>
+					</div>
+			</div>
+		</div>
+	</div>
+{% endblock body %}

@@ -47,4 +47,13 @@ class AnnonceRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function getThreeAnnonce(){
+        return $this->createQueryBuilder('a')
+        ->andWhere('a.pourvu = 0')
+        ->orderBy('a.datePublication', 'DESC')
+        ->setMaxResults(5)
+        ->getQuery()
+        ->getResult()
+        ;
+    }
 }

@@ -1,0 +1,24 @@
+<div class="card col-4 m-1">
+	<div class="card-body">
+		<h4 class="card-title">{{ annonceur.user}}</h4>
+		<h5 class="card-title">{{ annonceur.nomAsso }}</h5>
+		{% if not annonceur.isSpa %}
+			<p class="card-text">Statut : Eleveur privé</p>
+		{% else %}
+			<p class="card-text">Statut : SPA
+			</p>
+		{% endif %}
+		<li class="list-group-item m-0">
+			<i class="far fa-grin"></i>
+			Annonces pourvus :
+			{{ annonceur.countAnnonce }}
+		</li>
+		<li class="list-group-item m-0">
+			<i class="far fa-frown"></i>
+			Annonces non pourvus :
+			{{ annonceur.countAnnonceNonPourvu }}</li>
+		<div class="col-12 d-flex align-items-center justify-content-center mt-2">
+			<a  href="{{ url('annonceur_single',{id:annonceur.id})}}" class="stretched-link btn btn-outline-primary m-2">voir plus</a>
+		</div>
+	</div>
+</div>

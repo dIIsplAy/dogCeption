@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<div class="container">
+		<div class="row">
+			<div class="col-12 d-flex align-items-center justify-content-between mt-2">
+				<h1 class="col-6">
+					Details de
+					{{annonceur.user}}</h1>
+				<a href="{{ path('homepage') }}" class="stretched-link btn btn-outline-danger m-2 col-1">← Retour</a>
+			</div>
+		</div>
+		<div class="separator"></div>
+		<div class="row">
+			{% include 'components/singleCardAnnonceur.html.twig' with {annonceur : annonceur } only  %}
+			<div class="col-6">
+				{% if annonceur.isSpa %}
+					<img class="card-single-annonceur" src="https://img.ohmymag.com/alternative/refuge/spa-a-la-spa_8d86f26e3dc91e2f04dc4ff36e08e248693ab1a7.jpg">
+				{% else %}
+					<img class="card-single-annonceur" src="https://images.lanouvellerepublique.fr/image/upload/t_1020w/f_auto/5c50837802fd7809058b4568.jpg">
+				{% endif %}
+			</div>
+		</div>
+		<div class="separator"></div>
+		<div class="col-12">
+			<h3>Listes des annonces de
+				{{annonceur.user}}</h3>
+			<div class="row justify-content-around mt-4">
+				{% for annonce in annonceur.listeAnnonce %}
+					{% include 'components/cardAnnonce.html.twig' with {annonce : annonce } only  %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	<div class="separator"></div>
+{% endblock body  %}

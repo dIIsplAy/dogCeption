@@ -29,6 +29,7 @@ class ChienFixtures extends Fixture implements DependentFixtureInterface
             $chien->setIsAdopted(false);
             $chien->setIsFriendly(true);
             $chien->setLof(true);
+            $chien->addRace($race);
             $manager->persist($chien);
             $cpt++;
             

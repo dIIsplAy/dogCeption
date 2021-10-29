@@ -6,12 +6,16 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"admin" = "Admin", "annonceur" = "Annonceur", "client" = "Client"})
+ * @UniqueEntity(fields={"email","user"}, message="Il existe déja compte associé à cette adresse, veuillez vous connectez")
  * @ORM\Table(name="`user`")
+ *
  */
 abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -24,6 +28,7 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     *@Assert\NotBlank
      */
     protected $user;
 
@@ -35,13 +40,16 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     *@Assert\Length(max=255, min = 8, minMessage = "Votre mots de passe doit au moins faire {{ limit }} caractères")
      */
     protected $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
+     *@Assert\Email(message="Veuillez renseigner un email valide(exemple : jhon@gmail.com)")
+     *@Assert\NotBlank
      */
-    private $email;
+    protected $email;
 
 
 

@@ -1,0 +1,46 @@
+<div class="card mb-3 col-5">
+	<div class="row g-0">
+		<div style="padding:0px" class="col-md-5">
+			{% if annonce.firstImage %}
+				<img style="width: 100%;																					height: 100%;object-fit: cover;" 
+				src="{{annonce.firstImage.imgUrl}}" class="img-fluid rounded-start" alt="...">
+			{% endif %}
+		</div>
+		<div class="col-md-7">
+			<div class="card-body">
+				<h5 class="card-title">{{annonce.titre}}</h5>
+				<p class="card-text">
+					<small class="text-muted">{{annonce.annonceur.user}}</small>
+				</p>
+				<p class="card-text">
+					<small class="text-muted">{{annonce.datePublication |date("m/d/Y")}}</small>
+				</p>
+				{% if annonce.pourvu == false %}
+					<p class="card-text">
+						<small class="text-muted">statut : non pourvu</small>
+					</p>
+				{% endif %}
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">Nombre de chiens :
+						{{annonce.listeChien | length}}</li>
+					<li class="list-group-item">
+						{% for chien in annonce.listeChien %}
+							{% for race in chien.race %}
+								{{ race.nom -}}
+								{%- if not loop.last -%}
+									,
+								{%- endif -%}
+							{% endfor -%}
+							{%- if not loop.last -%}
+								,
+							{%- endif -%}
+						{% endfor %}
+					</li>
+				</ul>
+				<div class="col-12 justify-content-center d-flex align-items-center mt-4">
+					<a href="{{ url('annonce_single',{id:annonce.id})}}" class="stretched-link btn btn-outline-primary m-2">Details</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

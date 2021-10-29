@@ -28,11 +28,14 @@ private ChienRepository $chienRepository;
          foreach($annonceurs as $annonceur){
          $rand = rand(0, count($chiens) -1);
          $chien1 = $chiens[$rand];
+         $chien2 = $chiens[$rand];
          $annonce = new Annonce();
          $annonce->setDatePublication(new DateTime());
+         $annonce->setTitre('Adopter ce mignon dogo');
+         $annonce->setDescription('lorem ipsum dolor sit amet, consectetur adipis, lorem ipsum dolor sit am lorem ips dolor sit amet, consectetur adipis, lorem ipsum dolor sit amlorem ipsum dolor sit amet, consectetur adipis, lorem');
          $annonce->setAnnonceur($annonceur);
-         $annonce->addListeChien($chien1);
-         $annonce->setPourvu(true);
+         $annonce->addListeChien($chien1, $chien2);
+         $annonce->setPourvu(false);
          $manager->persist($annonce);
      }
 

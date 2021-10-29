@@ -14,7 +14,7 @@ class Client extends User
 {
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $adresse;
 
@@ -128,6 +128,14 @@ class Client extends User
         return $this;
     }
 
+     public function getRoles(): array
+    {
+        $roles = parent::getRoles();
+        
+        return array_merge($roles, [
+            'ROLE_CLIENT',
+        ]);
+    }
 
 
 

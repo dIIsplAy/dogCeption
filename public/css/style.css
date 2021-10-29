@@ -1,0 +1,36 @@
+.footer {
+  position: relative;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: black;
+  text-align: center;
+}
+
+ul{
+    list-style: none;
+}
+.carousel-control-next{
+    background:transparent;
+    border:none;
+}
+.carousel-control-prev{
+    background:transparent;
+    border:none;
+}
+.separator{
+    width: 100%;
+    height: 50px;
+}
+.card-single-view{
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.card-single-annonceur{
+    height: 400px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
