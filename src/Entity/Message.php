@@ -25,23 +25,23 @@ class Message
     private $content;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $dateEnvoie;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $lue;
+    private $lue = false;
 
     /**
      * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="message")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $client;
 
     /**
-     * @ORM\ManyToOne(targetEntity=DemandeAdoption::class, inversedBy="message")
+     * @ORM\ManyToOne(targetEntity=DemandeAdoption::class, inversedBy="message", cascade={"remove"})
      */
     private $demandeAdoption;
 

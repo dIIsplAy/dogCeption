@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<div style="height:80vh" class="container">
+		<div class="row d-flex col-12   justify-content-center align-items-center">
+			<h1>Voici la liste des chiens disponible pour l'adtoption</h1>
+			<div class="col-6">
+				{{ form_start(form)}}
+				{{ form_row(form.chien)}}
+				{{ form_row(form.message)}}
+				<button type="submit" class="btn btn-outline-secondary m-2">Envoyer</button>
+				{{ form_end(form)}}
+			</div>
+		</div>
+	{% endblock %}

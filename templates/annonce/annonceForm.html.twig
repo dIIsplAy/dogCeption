@@ -1,0 +1,18 @@
+{% extends 'base.html.twig'%}
+{% form_theme form  'themesForm/theme.html.twig' %}
+	{% block body %}
+	<div class="container justify-content-center d-flex mt-4 mb-4">
+		<div class="col-8">
+		{{ form_start(form)}}
+		{{ form_row(form.titre)}}
+		{{ form_row(form.description)}}
+		{# {{ form_row(form.datePublication)}} #}
+		{{ form_row(form.listeChien)}}
+		<button type="submit" class="btn btn-outline-secondary m-2">Envoyer</button>
+		{{ form_end(form)}}
+		</div>
+	</div>
+	{% endblock %}
+	{% block javascripts %}
+	<script type="text/javascript" src="{{ asset('js/script-form.js') }}">
+	{% endblock %}

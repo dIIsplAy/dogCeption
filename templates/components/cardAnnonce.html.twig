@@ -13,7 +13,7 @@
 					<small class="text-muted">{{annonce.annonceur.user}}</small>
 				</p>
 				<p class="card-text">
-					<small class="text-muted">{{annonce.datePublication |date("m/d/Y")}}</small>
+					<small class="text-muted">{{annonce.datePublication |date("d/m/Y à H:i")}}</small>
 				</p>
 				{% if annonce.pourvu == false %}
 					<p class="card-text">

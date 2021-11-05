@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<div style="height:80vh" class="container-fluid">
+		<div class="col-12">
+			<div class="row">
+				<div class="col-4">
+					<div class="list-group" id="list-tab" role="tablist">
+						<a class="list-group-item list-group-item-action active" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">Informations du compte</a>
+						<a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">Adresse et contact personnel</a>
+						<a class="list-group-item list-group-item-action" id="list-annonce-list" data-bs-toggle="list" href="#list-annonce" role="tab" aria-controls="list-annonce">Vos annonces</a>
+						<a class="list-group-item list-group-item-action" id="list-demandeAdoption-list" data-bs-toggle="list" href="#list-demandeAdoption" role="tab" aria-controls="list-demandeAdoption">Vos Demandes d'adoptions</a>
+					</div>
+				</div>
+				<div class="col-8">
+					<div class="tab-content" id="nav-tabContent">
+						<div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+							<ul class="list-group">
+								<li class="list-group-item">😀 :
+									{{app.user.user}}</li>
+								<li class="list-group-item">📆 :
+									{{app.user.dateInscription |date("d/m/Y à H:i")}}</li>
+							</ul>
+						</div>
+						<div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+							<ul class="list-group">
+								<li class="list-group-item">📩 :
+									{{app.user.email }}</li>
+								<li class="list-group-item">🚩 :
+									{{app.user.addresse }}
+								</li>
+								<li class="list-group-item">📞 :
+									{{app.user.telephone }}
+								</li>
+								<li class="list-group-item">🏚 :
+									{{app.user.nomAsso }}
+								</li>
+								<li class="list-group-item">
+									{% if app.user.isSpa %}
+										🐶- Statut : SPA
+									{% else %}
+										🐶-	Statut : Eleveur privé
+									{% endif %}
+								</li>
+							</ul>
+						</div>
+						<div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
+						<div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
+							<div class="container">
+								<div class="col-12 d-flex justify-content-center">
+									<div class="col-6">
+										{{ form_start(form) }}
+										{{ form_row(form.user, {}) }}
+										{{ form_row(form.email, {}) }}
+										{{ form_row(form.addresse, {}) }}
+										{{ form_row(form.isSpa, {}) }}
+										{{ form_row(form.isEleveur, {}) }}
+										{{ form_row(form.nomAsso, {}) }}
+										{{ form_row(form.telephone, {}) }}
+										<button type="submit" class="btn btn-primary">Valider</button>
+										{{ form_end(form) }}
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="list-annonce" role="tabpanel" aria-labelledby="list-annonce-list">
+							<h1>
+								Tableau de vos annonces
+							</h1>
+							{% for annonce in app.user.listeAnnonce %}
+								<table class="table">
+									<thead>
+										<tr>
+											<th scope="col">Id</th>
+											<th scope="col">Date de creation</th>
+											<th scope="col">Nom de l'annonce</th>
+											<th scope="col">Action</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th scope="row">{{annonce.id}}</th>
+											<td>{{annonce.datePublication |date("d/m/Y à H:i")}}</td>
+											<td>{{annonce.titre}}</td>
+											<td>
+												<a href="{{ url('annonce_single',{id:annonce.id})}}" class="btn btn-outline-success">Details</a>
+												<a href="{{ url('delete_annonce',{id:annonce.id})}}" class="btn btn-outline-danger">Supprimé</a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							{% endfor %}
+						</div>
+						<div class="tab-pane fade" id="list-demandeAdoption" role="tabpanel" aria-labelledby="list-demandeAdoption-list">
+							<h1>
+								Tableau de vos demande d'adoptions
+							</h1>
+								<table class="table">
+									<thead>
+										<tr>
+											<th scope="col">Nom de l'annonce</th>
+											<th scope="col">Date d'envoie</th>
+											<th scope="col">Nom du Client</th>
+											<th scope="col">Action</th>
+										</tr>
+									</thead>
+									<tbody>
+
+							{% for annonce in app.user.listeAnnonce %}
+								{% for demandeAdoption in annonce.demandeAdoption %}
+										<tr>
+											<th scope="row">{{demandeAdoption.annonce.titre}}</th>
+											<td>{{demandeAdoption.dateEnvoie |date("d/m/Y à H:i")}}</td>
+											<td>{{demandeAdoption.client.user}}</td>
+											<td>
+												<a href="{{ path('single_adoption',{id:demandeAdoption.id})}}" class="btn btn-outline-success">Details</a>
+												<a href="{{ path('delete',{id:demandeAdoption.id})}}" class="btn btn-outline-danger">Supprimé</a>
+												<a href="" class="btn btn-outline-success">Valider</a>
+											</td>
+										</tr>
+								{% endfor %}
+							{% endfor %}
+									</tbody>
+								</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

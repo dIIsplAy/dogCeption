@@ -1,0 +1,77 @@
+{% extends 'base.html.twig'%}
+{% block body %}
+	<div class="container">
+		<h3>Recapitulatif de la demande d'adoption faite par
+			{{demande.client.user}}</h3>
+		<div class="col-12">
+			<div class="row">
+				<div class="col-4">
+					<div class="list-group" id="list-tab" role="tablist">
+						<a class="list-group-item list-group-item-action active" id="list-detailClient-list" data-bs-toggle="list" href="#list-detailClient" role="tab" aria-controls="list-detailClient">Détails du client</a>
+						<a class="list-group-item list-group-item-action" id="list-detailDemande-list" data-bs-toggle="list" href="#list-detailDemande" role="tab" aria-controls="list-detailDemande">Détails demande d'adoption</a>
+						<a class="list-group-item list-group-item-action" id="list-messages-list" data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages">Messages</a>
+					</div>
+				</div>
+				<div class="col-8">
+					<div class="tab-content" id="nav-tabContent">
+						<div class="tab-pane fade show active" id="list-detailClient" role="tabpanel" aria-labelledby="list-detailClient-list">
+							<li class="list-group-item">Nom :
+								{{demande.client.user }}</li>
+							<li class="list-group-item">Adresse :
+								{{demande.client.adresse }},
+								{{demande.client.ville.nom }}</li>
+							<li class="list-group-item">Date d'inscription :
+								{{demande.client.dateInscription |date("d/m/Y à H:i") }}</li>
+						</div>
+						<div class="tab-pane fade" id="list-detailDemande" role="tabpanel" aria-labelledby="list-detailDemande-list">
+							<li class="list-group-item">Nom :
+								{{demande.annonce.annonceur.user }}</li>
+							<li class="list-group-item">
+								{% for chien in demande.chien %}
+									<p>Chiens concernés :
+										{{ chien.nom }}</p>
+								{% endfor %}
+							</li>
+							<li class="list-group-item">Date d'envoie :
+								{{demande.dateEnvoie |date("d/m/Y à H:i") }}</li>
+						</div>
+						<div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+							<li class="list-group-item">
+								{% for message in demande.message %}
+									<div class="card">
+										<div class="card-header">
+											Date d'envoie
+											{{ message.dateEnvoie |date("d/m/Y à H:i")}}
+										</div>
+										<div class="card-body">
+											<blockquote class="blockquote mb-0">
+												<p>{{message.content}}</p>
+												<footer class="blockquote-footer">Cordialement
+                                                    {% if not message.client %}
+													<cite title="Source Title">
+                                                    {{demande.annonce.annonceur.user}}</cite>
+                                                    {% else %}
+													<cite title="Source Title">
+                                                    {{message.client.user}}</cite>
+                                                    {% endif %}
+												</footer>
+											</blockquote>
+										</div>
+									</div>
+								{% endfor %}
+							</li>
+                            {# href="{{ url('delete_annonce',{id:annonce.id})}}" #}
+							<div class="col-6">
+                            {{ form_start(formMessage)}}
+                                {{ form_row(formMessage.content)}}
+                                <button type="submit" class="btn btn-outline-secondary m-2">Envoyer</button>
+                            {{ form_end(formMessage)}}
+							</div>
+						</div>
+						<div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

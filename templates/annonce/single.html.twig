@@ -2,7 +2,7 @@
 {% block body %}
 	<div style="height:80vh" class="container d-flex justify-content-center align-items-center">
 		<div class="row col-12 align-items-center">
-			<div class="col-6 p-4">
+			<div class="col-5 p-4">
 				<div id="carouselExampleControls" class="carousel slide h-100" data-bs-ride="carousel">
 					<div class="carousel-inner">
 						{% set isFirstImg = false %}
@@ -31,11 +31,11 @@
 					</button>
 				</div>
 			</div>
-			<div class="col-6 p-4 bg-light">
+			<div class="col-7 p-4 bg-light">
 				<h1>{{annonce.titre}}</h1>
 				<p>
 					Date de publication :
-					<small class="text-muted">{{annonce.datePublication  |date("m/d/Y") }}</small>
+					<small class="text-muted">{{annonce.datePublication  |date("d/m/Y à H:i") }}</small>
 				</p>
 				<p>
 					Nom de l'annonceur :
@@ -52,15 +52,25 @@
 					<ul>
 						{% for chien in annonce.listeChien %}
 							{% for race in chien.race %}
+							{% if chien.isAdopted %}
 								<li>Nom du chien
 									{{ chien.nom }}
-									({{ race.nom }})</li>
+									({{ race.nom }}) Adopté !</li>
+							{% else %}
+							<li>Nom du chien
+									{{ chien.nom }}	
+									({{ race.nom }})
+							{% if is_granted('ROLE_ANNONCEUR') and annonce.annonceur.id == app.user.id %}
+									<a href="{{ path('adopter',{id:chien.id})}}" class="btn btn-outline-success">adopté</a>
+							{% endif %}
+									</li>
+							{% endif %}
 							{% endfor -%}
 						{% endfor %}
 					</ul>
 				</div>
 					<div class="col-12 d-flex justify-content-center align-items-center">
-						<a href=".." class="btn btn-outline-primary">Demande d'adoption</a>
+						<a href="{{ url('demande_adoption',{id:annonce.id})}}" class="btn btn-outline-primary">Demande d'adoption</a>
 					</div>
 			</div>
 		</div>

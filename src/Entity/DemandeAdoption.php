@@ -20,7 +20,7 @@ class DemandeAdoption
     private $id;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $dateEnvoie;
 
@@ -40,7 +40,7 @@ class DemandeAdoption
     private $chien;
 
     /**
-     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="demandeAdoption")
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="demandeAdoption",cascade={"remove"})
      */
     private $message;
 
@@ -48,6 +48,11 @@ class DemandeAdoption
      * @ORM\ManyToOne(targetEntity=Annonce::class, inversedBy="demandeAdoption")
      */
     private $annonce;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $valider;
 
     public function __construct()
     {
@@ -159,6 +164,18 @@ class DemandeAdoption
     public function setAnnonce(?Annonce $annonce): self
     {
         $this->annonce = $annonce;
+
+        return $this;
+    }
+
+    public function getValider(): ?bool
+    {
+        return $this->valider;
+    }
+
+    public function setValider(bool $valider): self
+    {
+        $this->valider = $valider;
 
         return $this;
     }

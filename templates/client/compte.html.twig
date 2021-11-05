@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+	<div style="height:80vh" class="container">
+		<div class="col-12">
+			<div class="row">
+				<div class="col-4">
+					<div class="list-group" id="list-tab" role="tablist">
+						<a class="list-group-item list-group-item-action active" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">Informations du compte</a>
+						<a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">Adresse et contact personnel</a>
+						<a class="list-group-item list-group-item-action" id="list-messages-list" data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages">Messages</a>
+						<a class="list-group-item list-group-item-action" id="list-settings-list" data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings">Settings</a>
+					</div>
+				</div>
+				<div class="col-8">
+					<div class="tab-content" id="nav-tabContent">
+						<div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+							<ul class="list-group">
+								<li class="list-group-item">😀 :
+									{{app.user.user}}</li>
+								<li class="list-group-item">📆 :
+									{{app.user.dateInscription |date("d/m/Y à H:i")}}</li>
+							</ul>
+						</div>
+						<div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+							<ul class="list-group">
+								<li class="list-group-item">📩 :
+									{{app.user.email }}</li>
+								<li class="list-group-item">🚩 :
+									{{app.user.adresse }}
+								</li>
+								<li class="list-group-item">🏚 :
+									{{app.user.ville.nom }}
+								</li>
+								<li class="list-group-item">📞 :
+									{{app.user.telephone }}
+								</li>
+							</ul>
+						</div>
+						<div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>
+						<div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
+							<div class="container">
+								<div class="col-12 d-flex justify-content-center">
+									<div class="col-6">
+										{{ form_start(form) }}
+										{{ form_row(form.user, {}) }}
+										{{ form_row(form.email, {}) }}
+										{{ form_row(form.adresse, {}) }}
+										{{ form_row(form.ville, {}) }}
+										<button type="submit" class="btn btn-primary">Valider</button>
+										{{ form_end(form) }}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
