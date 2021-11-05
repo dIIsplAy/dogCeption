@@ -20,17 +20,17 @@ class Annonce
     private $id;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $datePublication;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $pourvu;
+    private $pourvu = false;
 
     /**
-     * @ORM\OneToMany(targetEntity=Chien::class, mappedBy="annonce")
+     * @ORM\OneToMany(targetEntity=Chien::class, mappedBy="annonce", cascade={"persist"} )
      */
     private $listeChien;
 

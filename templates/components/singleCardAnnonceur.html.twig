@@ -1,4 +1,4 @@
-<div class="card col-5 m-1">
+<div class="card col-4 m-1">
 	<div class="card-body">
 		<h4 class="card-title">{{ annonceur.user}}</h4>
 		<h5 class="card-title">{{ annonceur.nomAsso }}</h5>
@@ -22,6 +22,9 @@
 			{{ annonceur.addresse }}</li>
 		<li class="list-group-item m-0">
 		📞: {{annonceur.telephone }}
-			{{ annonceur.countAnnonceNonPourvu }}</li>
+        </li>
+		<li class="list-group-item m-0">
+		📩: {{ annonceur.email }}
+        </li>
 	</div>
 </div>

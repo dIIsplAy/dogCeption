@@ -42,6 +42,11 @@ class Annonceur extends User
      */
     private $telephone;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateInscription;
+
     public function __construct()
     {
         $this->listeAnnonce = new ArrayCollection();
@@ -157,4 +162,27 @@ class Annonceur extends User
         return $this;
     }
 
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = parent::getRoles();
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_ANNONCEUR';
+
+        return array_unique($roles);
+    }
+
+    public function getDateInscription(): ?\DateTimeInterface
+    {
+        return $this->dateInscription;
+    }
+
+    public function setDateInscription(\DateTimeInterface $dateInscription): self
+    {
+        $this->dateInscription = $dateInscription;
+
+        return $this;
+    }
 }

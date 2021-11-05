@@ -19,6 +19,18 @@ class ChienRepository extends ServiceEntityRepository
         parent::__construct($registry, Chien::class);
     }
 
+        public function demandeAdoptionChien($id)
+    {
+        return $this->createQueryBuilder('c')
+        ->addSelect('a')
+        ->leftJoin('c.annonce', 'a')
+        ->andWhere('a.id = :id')
+        ->setParameter('id', $id)
+        ->andWhere('c.isAdopted = :false')
+        ->setParameter('false', false)
+        ;
+    }
+
     // /**
     //  * @return Chien[] Returns an array of Chien objects
     //  */

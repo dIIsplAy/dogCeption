@@ -33,6 +33,16 @@ class Client extends User
      */
     private $listAdoption;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $telephone;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $dateInscription;
+
     public function __construct()
     {
         $this->message = new ArrayCollection();
@@ -137,6 +147,27 @@ class Client extends User
         ]);
     }
 
+     public function getTelephone(): ?string
+     {
+         return $this->telephone;
+     }
 
+     public function setTelephone(string $telephone): self
+     {
+         $this->telephone = $telephone;
 
+         return $this;
+     }
+
+     public function getDateInscription(): ?\DateTimeInterface
+     {
+         return $this->dateInscription;
+     }
+
+     public function setDateInscription(\DateTimeInterface $dateInscription): self
+     {
+         $this->dateInscription = $dateInscription;
+
+         return $this;
+     }
 }
