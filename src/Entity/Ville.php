@@ -17,7 +17,7 @@ class Ville
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)

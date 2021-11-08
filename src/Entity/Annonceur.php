@@ -194,7 +194,7 @@ class Annonceur extends User
     {
         $cpt = 0;
         foreach ($this->getListeAnnonce() as $annonce) {
-            foreach ($annonce->getdemandeAdoption() as $demande) {
+            foreach ($annonce->getDemandeAdoption() as $demande) {
                 foreach ($demande->getMessage() as $message) {
                     if (false == $message->getLue() && $message->getClient()) {
                         ++$cpt;

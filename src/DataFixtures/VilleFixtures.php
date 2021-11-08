@@ -31,7 +31,8 @@ class VilleFixtures extends Fixture implements DependentFixtureInterface
             $ville2->setDepartement($departement);
             $ville2->setNom('Ville'.$cpt);
             $ville2->setZipCode(1000 + $cpt);
-            $manager->persist($ville1, $ville2);
+            $manager->persist($ville1);
+            $manager->persist($ville1);
             ++$cpt;
         }
         // $product = new Product();

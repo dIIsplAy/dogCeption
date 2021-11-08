@@ -172,7 +172,7 @@ class DemandeAdoptionController extends AbstractController
             }
 
             foreach ($demande->getMessage() as $message) {
-                if ($message->getClient()) {
+                if (!is_null($message->getClient())) {
                     $message->setLue(true);
                     $em->persist($message);
                 }

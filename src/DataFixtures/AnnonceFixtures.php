@@ -34,7 +34,8 @@ class AnnonceFixtures extends Fixture implements DependentFixtureInterface
             $annonce->setTitre('Adopter ce mignon dogo');
             $annonce->setDescription('lorem ipsum dolor sit amet, consectetur adipis, lorem ipsum dolor sit am lorem ips dolor sit amet, consectetur adipis, lorem ipsum dolor sit amlorem ipsum dolor sit amet, consectetur adipis, lorem');
             $annonce->setAnnonceur($annonceur);
-            $annonce->addListeChien($chien1, $chien2);
+            $annonce->addListeChien($chien1);
+            $annonce->addListeChien($chien2);
             $annonce->setPourvu(false);
             $manager->persist($annonce);
         }

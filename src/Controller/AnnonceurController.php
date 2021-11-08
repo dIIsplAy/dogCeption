@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Annonceur;
 use App\Form\EditAnnonceurType;
-use App\Repository\AnnonceurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,12 +13,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AnnonceurController extends AbstractController
 {
-    private AnnonceurRepository $annonceurRepository;
 
-    public function __construct(AnnonceurRepository $annonceurRepository)
-    {
-        $this->annonceurRepository = $annonceurRepository;
-    }
+    // public function __construct(AnnonceurRepository $annonceurRepository)
+    // {
+    //     $this->annonceurRepository = $annonceurRepository;
+    // }
 
     /**
      * @Route("/annonceur/{id}", name="annonceur_single", requirements={"id"="\d+"})

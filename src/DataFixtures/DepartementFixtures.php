@@ -24,7 +24,7 @@ class DepartementFixtures extends Fixture
     public function getDependencies()
     {
         return [
-            departementFixtures::class,
+            DepartementFixtures::class,
         ];
     }
 }

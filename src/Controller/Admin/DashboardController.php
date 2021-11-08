@@ -10,7 +10,6 @@ use App\Entity\Race;
 use App\Repository\AnnonceRepository;
 use App\Repository\ChienRepository;
 use App\Repository\ClientRepository;
-use App\Repository\MessageRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -22,13 +21,11 @@ class DashboardController extends AbstractDashboardController
     private AnnonceRepository $annonceRepository;
     private ChienRepository $chienRepository;
     private ClientRepository $clientRepository;
-    private MessageRepository $messageRepository;
 
-    public function __construct(AnnonceRepository $annonceRepository, ChienRepository $chienRepository, ClientRepository $clientRepository, MessageRepository $messageRepository)
+    public function __construct(AnnonceRepository $annonceRepository, ChienRepository $chienRepository, ClientRepository $clientRepository)
     {
         $this->annonceRepository = $annonceRepository;
         $this->chienRepository = $chienRepository;
-        $this->messageRepository = $messageRepository;
         $this->clientRepository = $clientRepository;
     }
 
