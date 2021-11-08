@@ -56,4 +56,20 @@ class AnnonceRepository extends ServiceEntityRepository
         ->getResult()
         ;
     }
+    public function annoncePublier(){
+        return $this->createQueryBuilder('a')
+        ->select('count(a)')
+        ->getQuery()
+        ->getSingleScalarResult()
+        ;
+    }
+    public function annoncePublierPourvu(){
+        return $this->createQueryBuilder('a')
+        ->select('count(a)')
+        ->andWhere('a.pourvu =:true')
+        ->setParameter('true',true)
+        ->getQuery()
+        ->getSingleScalarResult()
+        ;
+    }
 }

@@ -42,6 +42,8 @@
 										<div class="card-header">
 											Date d'envoie
 											{{ message.dateEnvoie |date("d/m/Y à H:i")}}
+
+											{% if message.lue %} - Lue{% else %} - Non lue{% endif %}
 										</div>
 										<div class="card-body">
 											<blockquote class="blockquote mb-0">
@@ -67,7 +69,7 @@
 									{{ form_start(formMessage)}}
 									{{ form_row(formMessage.content)}}
 									<div class="col-12 justify-content-end align-items-center d-flex">
-									<button type="submit" class="btn btn-outline-secondary m-2 col-4">Envoyer</button>
+										<button type="submit" class="btn btn-outline-secondary m-2 col-4">Envoyer</button>
 									</div>
 									{{ form_end(formMessage)}}
 								</div>
@@ -79,4 +81,11 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		let messageButton = document.querySelector("#list-messages-list");
+console.log(messageButton);
+messageButton.addEventListener("click", function () {
+fetch("{{ path('messages_read', {id:demande.id}) }}");
+});
+	</script>
 {% endblock %}

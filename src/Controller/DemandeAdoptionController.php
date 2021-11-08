@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Annonceur;
 use App\Entity\Client;
 use App\Entity\DemandeAdoption;
 use App\Entity\Message;
@@ -13,6 +14,7 @@ use DateTime;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -100,8 +102,8 @@ class DemandeAdoptionController extends AbstractController
             $client = $this->getUser();
 
             $form = $this->createForm(MessageType::class, $message, [
-            'method' => 'POST',
-        ]);
+                'method' => 'POST',
+            ]);
 
         $form->handleRequest($request);
 
@@ -160,6 +162,42 @@ class DemandeAdoptionController extends AbstractController
          
      }
 
+    /**
+     * @Route("messages_read/{id}", name="messages_read")
+     */
+     public function messageLue(EntityManagerInterface $em, DemandeAdoption $demande){
+        $user = $this->getUser();
+        if ($user instanceof Annonceur) {
+            if ($demande->getAnnonce()->getAnnonceur()->getId() != $user->getId()) {
+                return $this->createAccessDeniedException('Nope');
+            }
 
-    
+            foreach ($demande->getMessage() as $message) {
+                if ($message->getClient()) {
+                    $message->setLue(true);
+                    $em->persist($message);
+                }
+            }
+
+
+            // $annonceurAnnonce = $user->getListeAnnonce();
+            // foreach($annonceurAnnonce as $annonce){
+            //     foreach($annonce->getDemandeAdoption() as $demande){
+            //         foreach($demande->getMessage() as $message){
+            //             $message->setLue(true);
+            //             $em->persist($message);
+            //         }
+            //     }
+            // }
+        } elseif ($user instanceof Client) {
+            foreach ($demande->getMessage() as $message) {
+                if (!$message->getClient()) {
+                    $message->setLue(true);
+                    $em->persist($message);
+                }
+            }
+        }
+        $em->flush();
+        return new JsonResponse(['success' => true]);
+     }
 }

@@ -1,0 +1,27 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+{% block main  %}
+	<div class="container">
+    <h2> Bonjour bienvenue sur vôtre dashboard !</h2>
+	<h5 class="m-4">Voici quelques informations concernant vôtre site ! </h5>
+	<div class="col-3 m-4">
+		<ul class="list-group">
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+				Nombre de chien adopté :
+				<span class="badge bg-primary rounded-pill">{{chienAdopter}}</span>
+			</li>
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+			 Nombre de clients inscrit : 
+				<span class="badge bg-primary rounded-pill">{{ clientInscrit }}</span>
+			</li>
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+			Nombre d'annonces publié : 
+				<span class="badge bg-primary rounded-pill">{{annoncePublier}}</span>
+			</li>
+			<li class="list-group-item d-flex justify-content-between align-items-center">
+			Nombre d'annonces pourvu : 
+				<span class="badge bg-primary rounded-pill">{{annoncePublierPourvu}}</span>
+			</li>
+		</ul>
+		</div>
+	</div>
+{% endblock %}

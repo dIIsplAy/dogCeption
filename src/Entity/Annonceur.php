@@ -185,4 +185,18 @@ class Annonceur extends User
 
         return $this;
     }
+
+         public function getNotificationsMessageAnnonceur(){
+         $cpt = 0;
+         foreach($this->getListeAnnonce() as $annonce ){
+             foreach($annonce->getdemandeAdoption() as $demande){
+                foreach($demande->getMessage() as $message){
+                 if($message->getLue() == false && $message->getClient()){
+                    $cpt++;
+                 }
+                }
+             }
+         }
+         return $cpt;
+     }
 }

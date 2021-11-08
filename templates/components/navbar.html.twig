@@ -19,18 +19,35 @@
 						<a class="nav-link" href="{{ path('inscription') }}">Inscription</a>
 					</li>
 				{% endif %}
-				{% if is_granted('ROLE_ADMIN') %}
+			</ul>
+			<ul class="navbar-nav">
+				{% if is_granted('ROLE_CLIENT') %}
 					<li class="nav-item">
-						<a class="btn btn-outline-success m-1" href="{{ path('admin') }}">Admin
+						<a href="{{ path('compte') }}" class="btn btn-primary position-relative m-1">
+							Message
+							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+								<span class="visually-hidden">{{ app.user.getNotificationsMessageClient() }}</span>
+							</span>
 						</a>
 					</li>
 				{% endif %}
-			</ul>
-			<ul class="navbar-nav">
+				{% if is_granted('ROLE_ANNONCEUR') %}
+					<li class="nav-item">
+
+						<a href="{{ path('compte_annonceur') }}" class="btn btn-primary position-relative m-1">
+							Message
+							<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+								<span class="visually-hidden">{{ app.user.getNotificationsMessageAnnonceur() }}</span>
+							</span>
+						</a>
+					</li>
+				{% endif %}
 				{% if app.user %}
 					<li class="nav-item">
 						{% if is_granted('ROLE_CLIENT') %}
 							<a class="btn btn-outline-success m-1" href="{{ path('compte') }}">Mon compte</a>
+						{% elseif is_granted('ROLE_ADMIN') %}
+								<a class="btn btn-outline-success m-1" href="{{ path('admin') }}">Admin</a>
 						{% else %}
 							<a class="btn btn-outline-success m-1" href="{{ path('compte_annonceur') }}">Mon compte</a>
 						{% endif %}
@@ -45,6 +62,7 @@
 							Connexion</a>
 					</li>
 				{% endif %}
+
 			</ul>
 		</div>
 	</nav>

@@ -13,17 +13,38 @@ use App\Entity\Annonceur;
 use App\Entity\Chien;
 use App\Entity\Client;
 use App\Entity\Race;
+use App\Repository\AnnonceRepository;
+use App\Repository\ChienRepository;
+use App\Repository\ClientRepository;
+use App\Repository\MessageRepository;
 
 class DashboardController extends AbstractDashboardController
 {
+    private AnnonceRepository $annonceRepository;
+    private ChienRepository $chienRepository;
+    private ClientRepository $clientRepository;
+    private MessageRepository $messageRepository;
+    public function __construct(AnnonceRepository $annonceRepository,ChienRepository $chienRepository,ClientRepository $clientRepository,MessageRepository $messageRepository  ){
+        $this->annonceRepository = $annonceRepository;
+        $this->chienRepository = $chienRepository;
+        $this->messageRepository = $messageRepository;
+        $this->clientRepository = $clientRepository;
+    }
     /**
      * @Route("/admin", name="admin")
      */
     public function index(): Response
     {
-         $routeBuilder = $this->get(AdminUrlGenerator::class);
-
-        return $this->redirect($routeBuilder->setController(AdminCrudController::class)->generateUrl());
+        $nbChienAdopted = $this->chienRepository->chienAdopter();
+        $clientInscrit = $this->clientRepository->clientInscrit();
+        $annoncePublier = $this->annonceRepository->annoncePublier();
+        $annoncePublierPourvu = $this->annonceRepository->annoncePublierPourvu();
+                return $this->render('admin/mainDashboard.html.twig', [
+                'chienAdopter' => $nbChienAdopted,
+                'clientInscrit' => $clientInscrit,
+                'annoncePublier' => $annoncePublier,
+                'annoncePublierPourvu' => $annoncePublierPourvu
+        ]);
     }
 
     public function configureDashboard(): Dashboard

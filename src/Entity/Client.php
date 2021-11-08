@@ -170,4 +170,17 @@ class Client extends User
 
          return $this;
      }
+
+     public function getNotificationsMessageClient(){
+         $cpt = 0;
+         foreach($this->getListAdoption() as $demande ){
+             foreach($demande->getMessage() as $message){
+                //  dd($message);
+                 if($message->getLue() == false && !$message->getClient()){
+                    $cpt++;
+                 }
+             }
+         }
+         return $cpt;
+     }
 }

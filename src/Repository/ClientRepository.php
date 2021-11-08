@@ -47,4 +47,13 @@ class ClientRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function clientInscrit()
+    {
+        return $this->createQueryBuilder('c')
+            ->select('count(c)')
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
+    }
 }

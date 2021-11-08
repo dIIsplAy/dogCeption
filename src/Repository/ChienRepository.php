@@ -31,6 +31,16 @@ class ChienRepository extends ServiceEntityRepository
         ;
     }
 
+
+    public function chienAdopter(){
+        return $this->createQueryBuilder('c')
+        ->select('count(c)')
+        ->andWhere('c.isAdopted = :true')
+        ->setParameter('true', true)
+        ->getQuery()
+        ->getSingleScalarResult()
+        ;
+    }
     // /**
     //  * @return Chien[] Returns an array of Chien objects
     //  */

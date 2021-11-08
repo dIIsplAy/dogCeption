@@ -68,9 +68,11 @@
 					{% endfor %}
 				</ul>
 			</div>
+			{% if is_granted('ROLE_CLIENT') %}
 			<div class="col-12 d-flex justify-content-center align-items-center">
 				<a href="{{ url('demande_adoption',{id:annonce.id})}}" class="btn btn-outline-primary">Demande d'adoption</a>
 			</div>
+			{% endif %}
 		</div>
 	</div>
 </div>{% endblock body %}
