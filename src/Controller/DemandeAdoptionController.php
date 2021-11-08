@@ -10,6 +10,7 @@ use App\Form\MessageType;
 use App\Repository\AnnonceRepository;
 use App\Repository\DemandeAdoptionRepository;
 use DateTime;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,9 +31,11 @@ class DemandeAdoptionController extends AbstractController
     }
     /**
      * @Route("/demande_adoption/{id}", name="demande_adoption", requirements={"id"="\d+"})
+     *@IsGranted("ROLE_CLIENT")
      */
     public function newDemandeAdoption(Request $request, int $id, EntityManagerInterface $em): Response
     {
+        
         $adoption = new DemandeAdoption();
         $annonce = $this->annonceRepository->find($id);
         $annonceur = $annonce->getAnnonceur();
@@ -119,6 +122,44 @@ class DemandeAdoptionController extends AbstractController
 
 
     }
+
+    /**
+     * @Route("/valider_demande/{id}", name="valider_demande", requirements={"id"="\d+"})
+     */
+     public function validerDemande(int $id, EntityManagerInterface $em){
+         $user = $this->getUser();
+         $demande = $this->demandeAdoptionRepository->find($id);
+         $demandeListeChiens = $demande->getChien();
+         $annonce = $demande->getAnnonce();
+         $listeChiens = $annonce->getListeChien();
+         $annonceur = $annonce->getAnnonceur();
+
+        if($user->getId() == $annonceur->getId()){
+            $demande->setValider(true);
+            $em->persist($demande);
+            foreach($demandeListeChiens as $chien){
+                $chien->setIsAdopted(true);
+                $em->persist($chien);
+            }
+            $bool = true;
+            foreach($listeChiens as $chien){
+                if(!$chien->getIsAdopted()){
+                    $bool = false;
+                }
+
+            }
+            if($bool){
+                $annonce->setPourvu(true);
+                $em->persist($annonce);
+            }
+            $em->flush();
+            return $this->redirectToRoute('compte_annonceur');
+        }
+
+
+         
+     }
+
 
     
 }

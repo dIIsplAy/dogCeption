@@ -1,7 +1,8 @@
 {% block collection_row %}
     <div class="list-{{ id }}"
-        data-prototype="{{ form_row(prototype)|e }}"
-        data-widget-counter="{{ form.children|length }}"
+         data-prototype="{{ form_row(prototype)|e }}"
+         data-widget-counter="{{ form.children|length }}"
+         data-proto-pattern="{{ prototype.vars.name }}"
     >
         {% for child in form.children %}
             <div>

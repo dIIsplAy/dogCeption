@@ -38,7 +38,7 @@
 						<div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
 							<li class="list-group-item">
 								{% for message in demande.message %}
-									<div class="card">
+									<div class="card mt-4">
 										<div class="card-header">
 											Date d'envoie
 											{{ message.dateEnvoie |date("d/m/Y à H:i")}}
@@ -47,25 +47,30 @@
 											<blockquote class="blockquote mb-0">
 												<p>{{message.content}}</p>
 												<footer class="blockquote-footer">Cordialement
-                                                    {% if not message.client %}
-													<cite title="Source Title">
-                                                    {{demande.annonce.annonceur.user}}</cite>
-                                                    {% else %}
-													<cite title="Source Title">
-                                                    {{message.client.user}}</cite>
-                                                    {% endif %}
+													{% if not message.client %}
+														<cite title="Source Title">
+															{{demande.annonce.annonceur.user}}</cite>
+													{% else %}
+														<cite title="Source Title">
+															{{message.client.user}}</cite>
+													{% endif %}
 												</footer>
 											</blockquote>
 										</div>
 									</div>
 								{% endfor %}
 							</li>
-                            {# href="{{ url('delete_annonce',{id:annonce.id})}}" #}
-							<div class="col-6">
-                            {{ form_start(formMessage)}}
-                                {{ form_row(formMessage.content)}}
-                                <button type="submit" class="btn btn-outline-secondary m-2">Envoyer</button>
-                            {{ form_end(formMessage)}}
+							{# href="{{ url('delete_annonce',{id:annonce.id})}}" #}
+							<div class="col-12 mt-4  justify-content-start ">
+								<h5 class="col-4">Nouveau message</h5>
+								<div class="col-12">
+									{{ form_start(formMessage)}}
+									{{ form_row(formMessage.content)}}
+									<div class="col-12 justify-content-end align-items-center d-flex">
+									<button type="submit" class="btn btn-outline-secondary m-2 col-4">Envoyer</button>
+									</div>
+									{{ form_end(formMessage)}}
+								</div>
 							</div>
 						</div>
 						<div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>

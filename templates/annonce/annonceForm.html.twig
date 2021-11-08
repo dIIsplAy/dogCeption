@@ -6,13 +6,11 @@
 		{{ form_start(form)}}
 		{{ form_row(form.titre)}}
 		{{ form_row(form.description)}}
-		{# {{ form_row(form.datePublication)}} #}
 		{{ form_row(form.listeChien)}}
 		<button type="submit" class="btn btn-outline-secondary m-2">Envoyer</button>
 		{{ form_end(form)}}
 		</div>
 	</div>
-	{% endblock %}
-	{% block javascripts %}
-	<script type="text/javascript" src="{{ asset('js/script-form.js') }}">
+
+	<script type="text/javascript" src="{{ asset('js/script-form.js') }}"></script>
 	{% endblock %}

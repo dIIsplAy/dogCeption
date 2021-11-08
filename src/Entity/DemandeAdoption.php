@@ -40,7 +40,7 @@ class DemandeAdoption
     private $chien;
 
     /**
-     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="demandeAdoption",cascade={"remove"})
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="demandeAdoption",cascade={"persist"}, orphanRemoval=true)
      */
     private $message;
 

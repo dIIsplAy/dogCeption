@@ -23,6 +23,7 @@ class AnnonceType extends AbstractType
                 'entry_options'=> [
                     'label' => false,
                 ],
+                'prototype_name' => '__chien__',
                 'allow_add'=> true,
                 'by_reference'=> false,
             ])

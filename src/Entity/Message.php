@@ -35,7 +35,7 @@ class Message
     private $lue = false;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="message")
+     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="message", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $client;

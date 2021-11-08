@@ -63,20 +63,23 @@
 							</div>
 						</div>
 						<div class="tab-pane fade" id="list-annonce" role="tabpanel" aria-labelledby="list-annonce-list">
-							<h1>
-								Tableau de vos annonces
-							</h1>
-							{% for annonce in app.user.listeAnnonce %}
-								<table class="table">
-									<thead>
-										<tr>
-											<th scope="col">Id</th>
-											<th scope="col">Date de creation</th>
-											<th scope="col">Nom de l'annonce</th>
-											<th scope="col">Action</th>
-										</tr>
-									</thead>
-									<tbody>
+							<div class="row justify-content-between mt-4">
+								<h4 class="col-4">
+									Tableau de vos annonces
+								</h4>
+								<a class="btn btn-outline-success col-2" href="{{ path('nouvelle_annonce')}}">Nouvelle annonce</a>
+							</div>
+							<table class="table mt-4">
+								<thead>
+									<tr>
+										<th scope="col">Id</th>
+										<th scope="col">Date de creation</th>
+										<th scope="col">Nom de l'annonce</th>
+										<th scope="col">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for annonce in app.user.listeAnnonce %}
 										<tr>
 											<th scope="row">{{annonce.id}}</th>
 											<td>{{annonce.datePublication |date("d/m/Y à H:i")}}</td>
@@ -86,41 +89,41 @@
 												<a href="{{ url('delete_annonce',{id:annonce.id})}}" class="btn btn-outline-danger">Supprimé</a>
 											</td>
 										</tr>
-									</tbody>
-								</table>
-							{% endfor %}
+									{% endfor %}
+								</tbody>
+							</table>
 						</div>
 						<div class="tab-pane fade" id="list-demandeAdoption" role="tabpanel" aria-labelledby="list-demandeAdoption-list">
 							<h1>
 								Tableau de vos demande d'adoptions
 							</h1>
-								<table class="table">
-									<thead>
-										<tr>
-											<th scope="col">Nom de l'annonce</th>
-											<th scope="col">Date d'envoie</th>
-											<th scope="col">Nom du Client</th>
-											<th scope="col">Action</th>
-										</tr>
-									</thead>
-									<tbody>
+							<table class="table">
+								<thead>
+									<tr>
+										<th scope="col">Nom de l'annonce</th>
+										<th scope="col">Date d'envoie</th>
+										<th scope="col">Nom du Client</th>
+										<th scope="col">Action</th>
+									</tr>
+								</thead>
+								<tbody>
 
-							{% for annonce in app.user.listeAnnonce %}
-								{% for demandeAdoption in annonce.demandeAdoption %}
-										<tr>
-											<th scope="row">{{demandeAdoption.annonce.titre}}</th>
-											<td>{{demandeAdoption.dateEnvoie |date("d/m/Y à H:i")}}</td>
-											<td>{{demandeAdoption.client.user}}</td>
-											<td>
-												<a href="{{ path('single_adoption',{id:demandeAdoption.id})}}" class="btn btn-outline-success">Details</a>
-												<a href="{{ path('delete',{id:demandeAdoption.id})}}" class="btn btn-outline-danger">Supprimé</a>
-												<a href="" class="btn btn-outline-success">Valider</a>
-											</td>
-										</tr>
-								{% endfor %}
-							{% endfor %}
-									</tbody>
-								</table>
+									{% for annonce in app.user.listeAnnonce %}
+										{% for demandeAdoption in annonce.demandeAdoption %}
+											<tr>
+												<th scope="row">{{demandeAdoption.annonce.titre}}</th>
+												<td>{{demandeAdoption.dateEnvoie |date("d/m/Y à H:i")}}</td>
+												<td>{{demandeAdoption.client.user}}</td>
+												<td>
+													<a href="{{ path('single_adoption',{id:demandeAdoption.id})}}" class="btn btn-outline-success">Details</a>
+													<a href="{{ path('delete',{id:demandeAdoption.id})}}" class="btn btn-outline-danger">Supprimé</a>
+													<a href="{{ path('valider_demande',{id:demandeAdoption.id})}}" class="btn btn-outline-success">Valider</a>
+												</td>
+											</tr>
+										{% endfor %}
+									{% endfor %}
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>

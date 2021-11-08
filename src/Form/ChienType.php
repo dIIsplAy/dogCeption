@@ -52,6 +52,7 @@ class ChienType extends AbstractType
                         'label' => false,
                     ],
                     'allow_add' => true,
+                    'prototype_name' => '__photo__',
                     'by_reference' => false
                 ]
             );

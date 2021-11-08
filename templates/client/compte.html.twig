@@ -7,8 +7,7 @@
 					<div class="list-group" id="list-tab" role="tablist">
 						<a class="list-group-item list-group-item-action active" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">Informations du compte</a>
 						<a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">Adresse et contact personnel</a>
-						<a class="list-group-item list-group-item-action" id="list-messages-list" data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages">Messages</a>
-						<a class="list-group-item list-group-item-action" id="list-settings-list" data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings">Settings</a>
+						<a class="list-group-item list-group-item-action" id="list-demande-list" data-bs-toggle="list" href="#list-demande" role="tab" aria-controls="list-demande">Demande d'adoption</a>
 					</div>
 				</div>
 				<div class="col-8">
@@ -51,6 +50,31 @@
 									</div>
 								</div>
 							</div>
+						</div>
+						<div class="tab-pane fade" id="list-demande" role="tabpanel" aria-labelledby="list-demande-list">
+							<h1>
+								Tableau de vos annonces
+							</h1>
+							<table class="table">
+								<thead>
+									<tr>
+										<th scope="col">Date de creation</th>
+										<th scope="col">Nom de l'annonce</th>
+										<th scope="col">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for demande in app.user.listAdoption %}
+										<tr>
+											<th scope="row">{{demande.dateEnvoie  |date("d/m/Y à H:i")}}</th>
+											<td>{{demande.annonce.titre}}</td>
+											<td>
+												<a href="{{ path('single_adoption',{id:demande.id})}}" class="btn btn-outline-success">Details</a>
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>

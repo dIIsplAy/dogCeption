@@ -14,18 +14,26 @@
 				<li class="nav-item">
 					<a class="nav-link" href="{{ path('annonces') }}">Liste des annonces</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('inscription') }}">Inscription</a>
-				</li>
-        </ul>
-        			<ul class="navbar-nav">
+				{% if not app.user %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('inscription') }}">Inscription</a>
+					</li>
+				{% endif %}
+				{% if is_granted('ROLE_ADMIN') %}
+					<li class="nav-item">
+						<a class="btn btn-outline-success m-1" href="{{ path('admin') }}">Admin
+						</a>
+					</li>
+				{% endif %}
+			</ul>
+			<ul class="navbar-nav">
 				{% if app.user %}
 					<li class="nav-item">
-					{% if is_granted('ROLE_CLIENT') %}
-						<a class="btn btn-outline-success m-1" href="{{ path('compte') }}">Mon compte</a>
-					{% else %}
-						<a class="btn btn-outline-success m-1" href="{{ path('compte_annonceur') }}">Mon compte</a>
-					{% endif %}
+						{% if is_granted('ROLE_CLIENT') %}
+							<a class="btn btn-outline-success m-1" href="{{ path('compte') }}">Mon compte</a>
+						{% else %}
+							<a class="btn btn-outline-success m-1" href="{{ path('compte_annonceur') }}">Mon compte</a>
+						{% endif %}
 					</li>
 					<li class="nav-item">
 						<a class="btn btn-outline-danger m-1" href="{{ path('logout') }}">

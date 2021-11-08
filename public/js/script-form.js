@@ -2,13 +2,14 @@
         const addFormToCollection = (e) => {
             const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.listSelector);
             const item = document.createElement('div');
+            const pattern = collectionHolder.dataset.protoPattern;
+            const regex = new RegExp(pattern,"g");
 
-            let proto = JSON.parse(JSON.stringify({text: collectionHolder.dataset.prototype}));
-
-            item.innerHTML = 
-                proto.text
+            item.innerHTML = collectionHolder
+                .dataset
+                .prototype
                 .replace(
-                    /__name__/g,
+                    regex,
                     collectionHolder.dataset.widgetCounter
                 );
 
@@ -22,5 +23,5 @@
                 });
         }
         document
-          .querySelectorAll('.add')
-          .forEach(btn => btn.addEventListener("click", addFormToCollection));
+            .querySelectorAll('.add')
+            .forEach(btn => btn.addEventListener("click", addFormToCollection));

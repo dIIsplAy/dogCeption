@@ -24,7 +24,7 @@ class Client extends User
     private $ville;
 
     /**
-     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="client", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="client", orphanRemoval=true, cascade={"persist"})
      */
     private $message;
 

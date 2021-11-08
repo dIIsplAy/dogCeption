@@ -51,28 +51,26 @@
 					<h5>Liste des chiens</h5>
 					<ul>
 						{% for chien in annonce.listeChien %}
-							{% for race in chien.race %}
-							{% if chien.isAdopted %}
-								<li>Nom du chien
-									{{ chien.nom }}
-									({{ race.nom }}) Adopté !</li>
-							{% else %}
 							<li>Nom du chien
-									{{ chien.nom }}	
+								{{ chien.nom }}
+								{% for race in chien.race %}
 									({{ race.nom }})
-							{% if is_granted('ROLE_ANNONCEUR') and annonce.annonceur.id == app.user.id %}
-									<a href="{{ path('adopter',{id:chien.id})}}" class="btn btn-outline-success">adopté</a>
-							{% endif %}
-									</li>
-							{% endif %}
+									{% if chien.isAdopted %}
+										Adopté !</li>
+								{% endif %}
 							{% endfor -%}
-						{% endfor %}
-					</ul>
-				</div>
-					<div class="col-12 d-flex justify-content-center align-items-center">
-						<a href="{{ url('demande_adoption',{id:annonce.id})}}" class="btn btn-outline-primary">Demande d'adoption</a>
-					</div>
+							{% if not chien.isAdopted %}
+								{% if is_granted('ROLE_ANNONCEUR') and annonce.annonceur.id == app.user.id %}
+									<a href="{{ path('adopter',{id:chien.id})}}" class="btn btn-outline-success">Adopté</a>
+								{% endif %}
+							{% endif %}
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+			<div class="col-12 d-flex justify-content-center align-items-center">
+				<a href="{{ url('demande_adoption',{id:annonce.id})}}" class="btn btn-outline-primary">Demande d'adoption</a>
 			</div>
 		</div>
 	</div>
-{% endblock body %}
+</div>{% endblock body %}
