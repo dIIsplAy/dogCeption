@@ -14,6 +14,7 @@ class DefaultController extends AbstractController
     private AnnonceurRepository $annonceurRepository;
     private AnnonceRepository $annonceRepository;
     private ChienRepository $chienRepository;
+
     public function __construct(ChienRepository $chienRepository, AnnonceRepository $annonceRepository,
     AnnonceurRepository $annonceurRepository)
     {
@@ -25,13 +26,14 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function getDataHome():Response
+    public function getDataHome(): Response
     {
         $annonceurs = $this->annonceurRepository->findAll();
         $annonces = $this->annonceRepository->getThreeAnnonce();
+
         return $this->render('default/index.html.twig',
-         ["annonces"=>$annonces,
-         "annonceurs"=>$annonceurs,
+         ['annonces' => $annonces,
+         'annonceurs' => $annonceurs,
         ]);
     }
 }

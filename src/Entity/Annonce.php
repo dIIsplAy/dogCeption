@@ -188,12 +188,13 @@ class Annonce
     public function getFirstImage(): ?Photo
     {
         foreach ($this->getListeChien() as $chien) {
-            foreach ($chien->getPhoto() as $photo){
-                if(!empty($photo->getImgUrl())){
-                return $photo;
+            foreach ($chien->getPhoto() as $photo) {
+                if (!empty($photo->getImgUrl())) {
+                    return $photo;
                 }
             }
         }
+
         return null;
     }
 }

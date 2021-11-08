@@ -24,7 +24,6 @@ class Race
      */
     private $nom;
 
-
     /**
      * @ORM\ManyToMany(targetEntity=Chien::class, mappedBy="race")
      */

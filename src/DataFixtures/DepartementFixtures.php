@@ -10,9 +10,9 @@ class DepartementFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        for($i = 0; $i<20; $i++){
+        for ($i = 0; $i < 20; ++$i) {
             $departement = new Departement();
-            $departement->setNom('Departement' . $i);
+            $departement->setNom('Departement'.$i);
             $manager->persist($departement);
         }
         // $product = new Product();

@@ -47,7 +47,8 @@ class AnnonceRepository extends ServiceEntityRepository
         ;
     }
     */
-    public function getThreeAnnonce(){
+    public function getThreeAnnonce()
+    {
         return $this->createQueryBuilder('a')
         ->andWhere('a.pourvu = 0')
         ->orderBy('a.datePublication', 'DESC')
@@ -56,18 +57,22 @@ class AnnonceRepository extends ServiceEntityRepository
         ->getResult()
         ;
     }
-    public function annoncePublier(){
+
+    public function annoncePublier()
+    {
         return $this->createQueryBuilder('a')
         ->select('count(a)')
         ->getQuery()
         ->getSingleScalarResult()
         ;
     }
-    public function annoncePublierPourvu(){
+
+    public function annoncePublierPourvu()
+    {
         return $this->createQueryBuilder('a')
         ->select('count(a)')
         ->andWhere('a.pourvu =:true')
-        ->setParameter('true',true)
+        ->setParameter('true', true)
         ->getQuery()
         ->getSingleScalarResult()
         ;

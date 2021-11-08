@@ -12,7 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Client extends User
 {
-
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -138,49 +137,51 @@ class Client extends User
         return $this;
     }
 
-     public function getRoles(): array
+    public function getRoles(): array
     {
         $roles = parent::getRoles();
-        
+
         return array_merge($roles, [
             'ROLE_CLIENT',
         ]);
     }
 
-     public function getTelephone(): ?string
-     {
-         return $this->telephone;
-     }
+    public function getTelephone(): ?string
+    {
+        return $this->telephone;
+    }
 
-     public function setTelephone(string $telephone): self
-     {
-         $this->telephone = $telephone;
+    public function setTelephone(string $telephone): self
+    {
+        $this->telephone = $telephone;
 
-         return $this;
-     }
+        return $this;
+    }
 
-     public function getDateInscription(): ?\DateTimeInterface
-     {
-         return $this->dateInscription;
-     }
+    public function getDateInscription(): ?\DateTimeInterface
+    {
+        return $this->dateInscription;
+    }
 
-     public function setDateInscription(\DateTimeInterface $dateInscription): self
-     {
-         $this->dateInscription = $dateInscription;
+    public function setDateInscription(\DateTimeInterface $dateInscription): self
+    {
+        $this->dateInscription = $dateInscription;
 
-         return $this;
-     }
+        return $this;
+    }
 
-     public function getNotificationsMessageClient(){
-         $cpt = 0;
-         foreach($this->getListAdoption() as $demande ){
-             foreach($demande->getMessage() as $message){
+    public function getNotificationsMessageClient()
+    {
+        $cpt = 0;
+        foreach ($this->getListAdoption() as $demande) {
+            foreach ($demande->getMessage() as $message) {
                 //  dd($message);
-                 if($message->getLue() == false && !$message->getClient()){
-                    $cpt++;
-                 }
-             }
-         }
-         return $cpt;
-     }
+                if (false == $message->getLue() && !$message->getClient()) {
+                    ++$cpt;
+                }
+            }
+        }
+
+        return $cpt;
+    }
 }

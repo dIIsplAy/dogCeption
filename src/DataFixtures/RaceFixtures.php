@@ -20,14 +20,13 @@ class RaceFixtures extends Fixture
             'Rottweiler',
             'Pug',
             'Shiba Inu',
-            'Border Colie'
+            'Border Colie',
         ];
 
-        foreach($raceNames as $raceName){
+        foreach ($raceNames as $raceName) {
             $race = new Race();
             $race->setNom($raceName);
             $manager->persist($race);
-            
         }
         // $product = new Product();
         // $manager->persist($product);

@@ -19,22 +19,22 @@ class EditAnnonceurType extends AbstractType
             ->add('email', EmailType::class, [
                 'required' => true,
                 ])
-            ->add('isSpa', ChoiceType::class, 
-            [   
-                'choices'=>[
-                    'oui'=>true,
-                    'non'=>false,
+            ->add('isSpa', ChoiceType::class,
+            [
+                'choices' => [
+                    'oui' => true,
+                    'non' => false,
                 ],
                 'required' => true,
-                'expanded'=>true,])
-            ->add('isEleveur', ChoiceType::class, 
-            [   
-                'choices'=>[
-                    'oui'=>true,
-                    'non'=>false,
+                'expanded' => true, ])
+            ->add('isEleveur', ChoiceType::class,
+            [
+                'choices' => [
+                    'oui' => true,
+                    'non' => false,
                 ],
                 'required' => true,
-                'expanded'=>true,])
+                'expanded' => true, ])
             ->add('nomAsso', TextType::class)
             ->add('addresse', TextType::class)
             ->add('telephone', TextType::class)

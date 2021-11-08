@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Race;
 use App\Entity\Chien;
 use App\Repository\RaceRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -13,17 +12,18 @@ class ChienFixtures extends Fixture implements DependentFixtureInterface
 {
     private RaceRepository $raceRepository;
 
-    public function __construct(RaceRepository $raceRepository )
+    public function __construct(RaceRepository $raceRepository)
     {
         $this->raceRepository = $raceRepository;
     }
+
     public function load(ObjectManager $manager): void
     {
-        $cpt= 0;
+        $cpt = 0;
         $races = $this->raceRepository->findAll();
-        foreach($races as $race){
+        foreach ($races as $race) {
             $chien = new Chien();
-            $chien->setNom('Chien' . $cpt);
+            $chien->setNom('Chien'.$cpt);
             // $chien->setAnnonce($cpt);
             $chien->setDescription('lorem ipsum dolor toto');
             $chien->setIsAdopted(false);
@@ -31,8 +31,7 @@ class ChienFixtures extends Fixture implements DependentFixtureInterface
             $chien->setLof(true);
             $chien->addRace($race);
             $manager->persist($chien);
-            $cpt++;
-            
+            ++$cpt;
         }
         // $product = new Product();
         // $manager->persist($product);

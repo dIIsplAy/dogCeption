@@ -13,14 +13,14 @@ class UserUpdateEventSubscriber implements EventSubscriberInterface
 {
     private UserPasswordHasherInterface $hasher;
 
-    public function __construct(UserPasswordHasherInterface $hasher, EntityManagerInterface $em) 
+    public function __construct(UserPasswordHasherInterface $hasher, EntityManagerInterface $em)
     {
         $this->hasher = $hasher;
         $this->em = $em;
     }
 
     /**
-     * @var BeforeEntityPersistedEvent|BeforeEntityUpdatedEvent $event
+     * @var BeforeEntityPersistedEvent|BeforeEntityUpdatedEvent
      */
     public function onBeforePersist($event)
     {

@@ -11,10 +11,12 @@ use Doctrine\Persistence\ObjectManager;
 class PhotoFixtures extends Fixture implements DependentFixtureInterface
 {
     private ChienRepository $chienRepository;
+
     public function __construct(ChienRepository $chienRepository)
     {
         $this->chienRepository = $chienRepository;
     }
+
     public function load(ObjectManager $manager): void
     {
         $chiens = $this->chienRepository->findAll();
@@ -26,7 +28,8 @@ class PhotoFixtures extends Fixture implements DependentFixtureInterface
         }
         $manager->flush();
     }
-     public function getDependencies()
+
+    public function getDependencies()
     {
         return [
             ChienFixtures::class,

@@ -80,11 +80,4 @@ class Departement
 
         return $this;
     }
-
-
-
-
-
-
-
 }

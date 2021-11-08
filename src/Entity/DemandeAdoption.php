@@ -155,7 +155,6 @@ class DemandeAdoption
         return $this;
     }
 
-
     public function getAnnonce(): ?Annonce
     {
         return $this->annonce;

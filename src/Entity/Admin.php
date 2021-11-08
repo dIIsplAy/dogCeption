@@ -13,7 +13,7 @@ class Admin extends User
     public function getRoles(): array
     {
         $roles = parent::getRoles();
-        
+
         return array_merge($roles, [
             'ROLE_ADMIN',
         ]);

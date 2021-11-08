@@ -6,6 +6,7 @@ use App\Repository\AnnonceurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+
 /**
  * @ORM\Entity(repositoryClass=AnnonceurRepository::class)
  */
@@ -35,7 +36,6 @@ class Annonceur extends User
      * @ORM\Column(type="string", length=255)
      */
     private $addresse;
-
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -117,22 +117,28 @@ class Annonceur extends User
 
         return $this;
     }
-    public function countAnnonce():int{
+
+    public function countAnnonce(): int
+    {
         $cpt = 0;
-        foreach($this->listeAnnonce as $annonce){
-            if($annonce->getPourvu()){
-                $cpt++;
+        foreach ($this->listeAnnonce as $annonce) {
+            if ($annonce->getPourvu()) {
+                ++$cpt;
             }
         }
+
         return $cpt;
     }
-    public function countAnnonceNonPourvu():int{
+
+    public function countAnnonceNonPourvu(): int
+    {
         $cpt = 0;
-        foreach($this->listeAnnonce as $annonce){
-            if(!$annonce->getPourvu()){
-                $cpt++;
+        foreach ($this->listeAnnonce as $annonce) {
+            if (!$annonce->getPourvu()) {
+                ++$cpt;
             }
         }
+
         return $cpt;
     }
 
@@ -147,8 +153,6 @@ class Annonceur extends User
 
         return $this;
     }
-
-
 
     public function getTelephone(): ?string
     {
@@ -186,17 +190,19 @@ class Annonceur extends User
         return $this;
     }
 
-         public function getNotificationsMessageAnnonceur(){
-         $cpt = 0;
-         foreach($this->getListeAnnonce() as $annonce ){
-             foreach($annonce->getdemandeAdoption() as $demande){
-                foreach($demande->getMessage() as $message){
-                 if($message->getLue() == false && $message->getClient()){
-                    $cpt++;
-                 }
+    public function getNotificationsMessageAnnonceur()
+    {
+        $cpt = 0;
+        foreach ($this->getListeAnnonce() as $annonce) {
+            foreach ($annonce->getdemandeAdoption() as $demande) {
+                foreach ($demande->getMessage() as $message) {
+                    if (false == $message->getLue() && $message->getClient()) {
+                        ++$cpt;
+                    }
                 }
-             }
-         }
-         return $cpt;
-     }
+            }
+        }
+
+        return $cpt;
+    }
 }

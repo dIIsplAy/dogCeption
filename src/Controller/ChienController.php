@@ -12,9 +12,11 @@ class ChienController extends AbstractController
 {
     private ChienRepository $chienRepository;
 
-    public function __construct(ChienRepository $chienRepository){
+    public function __construct(ChienRepository $chienRepository)
+    {
         $this->chienRepository = $chienRepository;
     }
+
     /**
      * @Route("/chien", name="chien")
      */
@@ -26,18 +28,16 @@ class ChienController extends AbstractController
     }
 
     /**
-    *@Route("/adopter/{id}", name="adopter",  requirements={"id"="\d+"})
+     *@Route("/adopter/{id}", name="adopter",  requirements={"id"="\d+"})
      */
-     public function chienAdopter(int $id,  EntityManagerInterface $em): Response
-     {
+    public function chienAdopter(int $id, EntityManagerInterface $em): Response
+    {
+        $chien = $this->chienRepository->find($id);
+        $annonce = $chien->getAnnonce();
+        $chien->setIsAdopted(true);
+        $em->persist($chien);
+        $em->flush();
 
-         $chien = $this->chienRepository->find($id);
-         $annonce = $chien->getAnnonce();
-         $chien->setIsAdopted(true);
-         $em->persist($chien);
-         $em->flush();
-
-        return $this->redirectToRoute("annonce_single",['id' => $annonce->getId()]);
-
-     }
+        return $this->redirectToRoute('annonce_single', ['id' => $annonce->getId()]);
+    }
 }

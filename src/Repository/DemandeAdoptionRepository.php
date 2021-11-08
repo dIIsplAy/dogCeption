@@ -18,7 +18,4 @@ class DemandeAdoptionRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, DemandeAdoption::class);
     }
-
-
-
 }

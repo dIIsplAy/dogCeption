@@ -13,7 +13,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DemandeAdoptionType extends AbstractType
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $id = $options['id'];
@@ -23,13 +22,13 @@ class DemandeAdoptionType extends AbstractType
                 EntityType::class,
                 [
                     'choice_label' => 'nom',
-                    'by_reference'=>false,
+                    'by_reference' => false,
                     'class' => Chien::class,
                     'expanded' => true,
                     'multiple' => true,
                     'query_builder' => function (ChienRepository $repository) use ($id) {
                         return $repository->demandeAdoptionChien($id);
-                    }
+                    },
                 ],
             )
                         ->add(
@@ -40,16 +39,15 @@ class DemandeAdoptionType extends AbstractType
                     'entry_options' => [
                         'label' => false,
                     ],
-                    'by_reference' => false
+                    'by_reference' => false,
                 ]
             );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-
         $resolver
-        ->setRequired("id")
+        ->setRequired('id')
         ->setDefaults([
             'data_class' => DemandeAdoption::class,
         ]);

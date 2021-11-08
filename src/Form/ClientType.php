@@ -16,7 +16,7 @@ class ClientType extends AbstractType
     {
         $builder
             ->add('plainPassword', PasswordType::class, ['required' => true])
-            ->add('email',  EmailType::class, ['required' => true])
+            ->add('email', EmailType::class, ['required' => true])
             ->add('user', TextType::class, ['required' => true])
         ;
     }
@@ -27,5 +27,4 @@ class ClientType extends AbstractType
             'data_class' => Client::class,
         ]);
     }
-
 }

@@ -4,10 +4,11 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\InheritanceType("JOINED")
@@ -15,7 +16,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\DiscriminatorMap({"admin" = "Admin", "annonceur" = "Annonceur", "client" = "Client"})
  * @UniqueEntity(fields={"email","user"}, message="Il existe déja compte associé à cette adresse, veuillez vous connectez")
  * @ORM\Table(name="`user`")
- *
  */
 abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -50,7 +50,6 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
      *@Assert\NotBlank
      */
     protected $email;
-
 
     protected $plainPassword;
 
@@ -156,23 +155,22 @@ abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * Get the value of plainPassword
-     */ 
+     * Get the value of plainPassword.
+     */
     public function getPlainPassword()
     {
         return $this->plainPassword;
     }
 
     /**
-     * Set the value of plainPassword
+     * Set the value of plainPassword.
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setPlainPassword($plainPassword)
     {
         $this->plainPassword = $plainPassword;
 
         return $this;
     }
-
 }

@@ -45,7 +45,6 @@ class Ville
         $this->client = new ArrayCollection();
     }
 
-
     public function getId(): ?int
     {
         return $this->id;
@@ -116,5 +115,4 @@ class Ville
 
         return $this;
     }
-
 }

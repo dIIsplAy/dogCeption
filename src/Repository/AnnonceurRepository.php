@@ -48,12 +48,13 @@ class AnnonceurRepository extends ServiceEntityRepository
     }
     */
 
-    public function getAnnonceurAnnonces($id){
+    public function getAnnonceurAnnonces($id)
+    {
         return $this->createQueryBuilder('a')
         ->andWhere('a.id = :ids')
         ->setParameter('ids', $id)
         ->join('a.listeAnnonce', 'l')
-        ->where('l.annonceur_id LIKE :ids' )
+        ->where('l.annonceur_id LIKE :ids')
         ->getQuery()
         ->getResult()
     ;

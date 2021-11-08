@@ -11,8 +11,8 @@ use App\Form\MessageType;
 use App\Repository\AnnonceRepository;
 use App\Repository\DemandeAdoptionRepository;
 use DateTime;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,27 +24,25 @@ class DemandeAdoptionController extends AbstractController
     private AnnonceRepository $annonceRepository;
     private DemandeAdoptionRepository $demandeAdoptionRepository;
 
-
-
-    public function  __construct(AnnonceRepository $annonceRepository, DemandeAdoptionRepository $demandeAdoptionRepository)
+    public function __construct(AnnonceRepository $annonceRepository, DemandeAdoptionRepository $demandeAdoptionRepository)
     {
         $this->annonceRepository = $annonceRepository;
         $this->demandeAdoptionRepository = $demandeAdoptionRepository;
     }
+
     /**
      * @Route("/demande_adoption/{id}", name="demande_adoption", requirements={"id"="\d+"})
      *@IsGranted("ROLE_CLIENT")
      */
     public function newDemandeAdoption(Request $request, int $id, EntityManagerInterface $em): Response
     {
-        
         $adoption = new DemandeAdoption();
         $annonce = $this->annonceRepository->find($id);
         $annonceur = $annonce->getAnnonceur();
         $client = $this->getUser();
         $message = new Message();
         $adoption->addMessage($message);
-        
+
         $form = $this->createForm(DemandeAdoptionType::class, $adoption, [
             'method' => 'POST',
             'id' => $id,
@@ -68,6 +66,7 @@ class DemandeAdoptionController extends AbstractController
             //recup message , demande adoption relation cascade persist
             $em->persist($adoption);
             $em->flush();
+
             return $this->redirectToRoute('homepage');
         }
 
@@ -79,29 +78,31 @@ class DemandeAdoptionController extends AbstractController
     /**
      * @Route("/delete/{id}", name="delete", requirements={"id"="\d+"})
      */
-    public function delete(int $id,  EntityManagerInterface $em) {
+    public function delete(int $id, EntityManagerInterface $em)
+    {
         $demande = $this->demandeAdoptionRepository->find($id);
         // dd($demande);
         $annonce = $demande->getAnnonce();
         $annonceur = $annonce->getAnnonceur();
         $user = $this->getUser();
-        if($user->getId() == $annonceur->getId()) {
-        $em->remove($demande);
-        $em->flush();
+        if ($user->getId() == $annonceur->getId()) {
+            $em->remove($demande);
+            $em->flush();
         }
-       return $this->redirectToRoute('compte_annonceur');
 
+        return $this->redirectToRoute('compte_annonceur');
     }
 
     /**
      * @Route("/single_adoption/{id}", name="single_adoption", requirements={"id"="\d+"})
      */
-     public function singleAdoption(DemandeAdoption $demande, Request $request, EntityManagerInterface $em) {
-            $message = new Message();
-            $message->setDemandeAdoption($demande);
-            $client = $this->getUser();
+    public function singleAdoption(DemandeAdoption $demande, Request $request, EntityManagerInterface $em)
+    {
+        $message = new Message();
+        $message->setDemandeAdoption($demande);
+        $client = $this->getUser();
 
-            $form = $this->createForm(MessageType::class, $message, [
+        $form = $this->createForm(MessageType::class, $message, [
                 'method' => 'POST',
             ]);
 
@@ -115,57 +116,55 @@ class DemandeAdoptionController extends AbstractController
             //recup message , demande adoption relation cascade persist
             $em->persist($message);
             $em->flush();
-     }
+        }
+
         return $this->render('adoption/single.html.twig', [
             'demande' => $demande,
             'annonce' => $demande->getAnnonce(),
             'formMessage' => $form->createView(),
         ]);
-
-
     }
 
     /**
      * @Route("/valider_demande/{id}", name="valider_demande", requirements={"id"="\d+"})
      */
-     public function validerDemande(int $id, EntityManagerInterface $em){
-         $user = $this->getUser();
-         $demande = $this->demandeAdoptionRepository->find($id);
-         $demandeListeChiens = $demande->getChien();
-         $annonce = $demande->getAnnonce();
-         $listeChiens = $annonce->getListeChien();
-         $annonceur = $annonce->getAnnonceur();
+    public function validerDemande(int $id, EntityManagerInterface $em)
+    {
+        $user = $this->getUser();
+        $demande = $this->demandeAdoptionRepository->find($id);
+        $demandeListeChiens = $demande->getChien();
+        $annonce = $demande->getAnnonce();
+        $listeChiens = $annonce->getListeChien();
+        $annonceur = $annonce->getAnnonceur();
 
-        if($user->getId() == $annonceur->getId()){
+        if ($user->getId() == $annonceur->getId()) {
             $demande->setValider(true);
             $em->persist($demande);
-            foreach($demandeListeChiens as $chien){
+            foreach ($demandeListeChiens as $chien) {
                 $chien->setIsAdopted(true);
                 $em->persist($chien);
             }
             $bool = true;
-            foreach($listeChiens as $chien){
-                if(!$chien->getIsAdopted()){
+            foreach ($listeChiens as $chien) {
+                if (!$chien->getIsAdopted()) {
                     $bool = false;
                 }
-
             }
-            if($bool){
+            if ($bool) {
                 $annonce->setPourvu(true);
                 $em->persist($annonce);
             }
             $em->flush();
+
             return $this->redirectToRoute('compte_annonceur');
         }
-
-
-         
-     }
+    }
 
     /**
      * @Route("messages_read/{id}", name="messages_read")
      */
-     public function messageLue(EntityManagerInterface $em, DemandeAdoption $demande){
+    public function messageLue(EntityManagerInterface $em, DemandeAdoption $demande)
+    {
         $user = $this->getUser();
         if ($user instanceof Annonceur) {
             if ($demande->getAnnonce()->getAnnonceur()->getId() != $user->getId()) {
@@ -178,7 +177,6 @@ class DemandeAdoptionController extends AbstractController
                     $em->persist($message);
                 }
             }
-
 
             // $annonceurAnnonce = $user->getListeAnnonce();
             // foreach($annonceurAnnonce as $annonce){
@@ -198,6 +196,7 @@ class DemandeAdoptionController extends AbstractController
             }
         }
         $em->flush();
+
         return new JsonResponse(['success' => true]);
-     }
+    }
 }

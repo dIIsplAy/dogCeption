@@ -19,7 +19,7 @@ class ChienRepository extends ServiceEntityRepository
         parent::__construct($registry, Chien::class);
     }
 
-        public function demandeAdoptionChien($id)
+    public function demandeAdoptionChien($id)
     {
         return $this->createQueryBuilder('c')
         ->addSelect('a')
@@ -31,8 +31,8 @@ class ChienRepository extends ServiceEntityRepository
         ;
     }
 
-
-    public function chienAdopter(){
+    public function chienAdopter()
+    {
         return $this->createQueryBuilder('c')
         ->select('count(c)')
         ->andWhere('c.isAdopted = :true')
